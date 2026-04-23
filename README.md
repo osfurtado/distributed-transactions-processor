@@ -1,1 +1,1 @@
-# distributed-account-transactions-processor-dotnet
+# Distributed Transactions Processor
