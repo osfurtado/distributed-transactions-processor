@@ -1,0 +1,72 @@
+version: '3.5'
+services:
+  db:
+    image: postgres:latest
+    hostname: db
+    command: 'postgres -c shared_buffers=256MB -c fsync=off -c full_page_writes=off -c max_connections=1000'
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=transactions
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./Sql/ddl.sql:/docker-entrypoint-initdb.d/ddl.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d transactions"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    deploy:
+      resources:
+        limits:
+          cpus: '0.4'
+          memory: '220MB'
+  api01:
+    container_name: api01
+    build:
+      context: ./AccountTransactionsProcessor/
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_URLS=http://*:8080
+      - POOL_SIZE=490
+    deploy:
+      resources:
+        limits:
+          cpus: '0.4'
+          memory: '115MB'
+  api02:
+    container_name: api02
+    build:
+      context: ./AccountTransactionsProcessor/
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_URLS=http://*:8081
+      - POOL_SIZE=490
+    deploy:
+      resources:
+        limits:
+          cpus: '0.4'
+          memory: '115MB'
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api01
+      - api02
+    ports:
+      - "9999:9999"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: '100MB'
+networks:
+  default:
+    driver: bridge
+    name: transactions

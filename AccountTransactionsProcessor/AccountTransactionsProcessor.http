@@ -1,0 +1,11 @@
+@AccountTransactionsProcessor_HostAddress = http://localhost:5278
+
+GET {{AccountTransactionsProcessor_HostAddress}}/todos/
+Accept: application/json
+
+###
+
+GET {{AccountTransactionsProcessor_HostAddress}}/todos/1
+Accept: application/json
+
+###
