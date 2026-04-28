@@ -10,6 +10,7 @@ namespace AccountTransactionsProcessor.Pools
 
         private int POOL_SIZE = int.Parse(Environment.GetEnvironmentVariable("POOL_SIZE") ?? "1");
 
+        public int Count => _pool.Count;
 
         public AccountStatementPool()
         {

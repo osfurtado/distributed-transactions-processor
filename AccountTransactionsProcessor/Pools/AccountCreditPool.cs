@@ -10,6 +10,7 @@ namespace AccountTransactionsProcessor.Pools
         private readonly ConcurrentQueue<NpgsqlCommand> _pool;
         private int POOL_SIZE = int.Parse(Environment.GetEnvironmentVariable("POOL_SIZE") ?? "1");
 
+        public int Count => _pool.Count;
 
         public AccountCreditPool()
         {
@@ -34,15 +35,17 @@ namespace AccountTransactionsProcessor.Pools
         public NpgsqlCommand Create()
         {
             var command = new NpgsqlCommand(@"
-                            WITH updated AS (
-                                UPDATE customer SET balance = balance + @amount
-                                WHERE id = @id
-                                RETURNING balance, "limit"
-                            ),
-                            ins as (INSERT INTO transactions (amount, description, type, customer_id)
-                                SELECT @amount, @description, @type, @id 
-                                FROM updated)
-                            SELECT balance, "limit" FROM updated;");
+                WITH updated AS (
+                    UPDATE customer SET balance = balance + @amount
+                    WHERE id = @id
+                    RETURNING balance, ""limit""
+                ),
+                ins as (
+                    INSERT INTO transactions (amount, description, type, customer_id)
+                    SELECT @amount, @description, @type, @id 
+                    FROM updated
+                )
+                SELECT balance, ""limit"" FROM updated;");
 
             command.Parameters.Add(new NpgsqlParameter("amount", NpgsqlDbType.Integer));
             command.Parameters.Add(new NpgsqlParameter("id", NpgsqlDbType.Integer));

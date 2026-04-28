@@ -45,7 +45,7 @@ services:
       db:
         condition: service_healthy
     environment:
-      - ASPNETCORE_URLS=http://*:8081
+      - ASPNETCORE_URLS=http://*:8080
       - POOL_SIZE=490
     deploy:
       resources:
