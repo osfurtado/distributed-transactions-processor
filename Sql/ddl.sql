@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS transactions;
 
 CREATE TABLE customer (
   id SERIAL PRIMARY KEY,
-  limit INTEGER NOT NULL,
+  "limit" INTEGER NOT NULL,
   balance INTEGER NOT NULL DEFAULT 0
 );
 
@@ -33,7 +33,7 @@ CREATE INDEX idx_customer_id ON customer(id);
 
 CREATE INDEX idx_transaction_customer_id ON transactions(customer_id);
 
-INSERT INTO customer (limit, balance)
+INSERT INTO customer ("limit", balance)
 VALUES
     (1000 * 100, 0),
     (800 * 100, 0),

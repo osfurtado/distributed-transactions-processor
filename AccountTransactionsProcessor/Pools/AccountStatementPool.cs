@@ -31,10 +31,10 @@ namespace AccountTransactionsProcessor.Pools
 
         public Dictionary<string, NpgsqlCommand> Create()
         {
-            var selectCustomer = new NpgsqlCommand($"SELECT limit, balance FROM customer WHERE id = $1");
+            var selectCustomer = new NpgsqlCommand(@"SELECT ""limit"", balance FROM customer WHERE id = $1;");
             selectCustomer.Parameters.Add(new NpgsqlParameter<int>() { NpgsqlDbType = NpgsqlDbType.Integer });
 
-            var selectTransaction = new NpgsqlCommand($"SELECT amount, type as type, description, created_at FROM transactions WHERE customer_id = $1 ORDER BY id DESC LIMIT 10");
+            var selectTransaction = new NpgsqlCommand(@"SELECT amount, type as type, description, created_at FROM transactions WHERE customer_id = $1 ORDER BY id DESC LIMIT 10;");
             selectTransaction.Parameters.Add(new NpgsqlParameter<int>() { NpgsqlDbType = NpgsqlDbType.Integer });
 
             return new Dictionary<string, NpgsqlCommand>
