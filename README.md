@@ -52,8 +52,8 @@ Hochperformante API zur Verarbeitung von Finanztransaktionen, entwickelt mit .NE
 
 ## Ergebnis des Lasttests
 <p align="center">
-  <img src="Docs/last.PNG" width="550" alt="Last Results">
-  <img src="Docs/global.PNG" width="550" alt="Global Results">
+  <img src="Docs/last.PNG" width="800" alt="Last Results">
+  <img src="Docs/global.PNG" width="800" alt="Global Results">
 </p>
 
 ---
