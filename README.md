@@ -44,7 +44,7 @@ Hochperformante API zur Verarbeitung von Finanztransaktionen, entwickelt mit .NE
 
 ## Technologie-Stack
 
-- [.NET 8](https://dotnet.microsoft.com/) — Minimal API mit `WebApplication.CreateSlimBuilder`
+- [.NET 10](https://dotnet.microsoft.com/) — Minimal API mit `WebApplication.CreateSlimBuilder`
 - [Npgsql](https://www.npgsql.org/) — PostgreSQL-Treiber mit Connection Pool und Multiplexing
 - [PostgreSQL 16](https://www.postgresql.org/)
 - [Nginx](https://nginx.org/) — Reverse Proxy und Load Balancer
