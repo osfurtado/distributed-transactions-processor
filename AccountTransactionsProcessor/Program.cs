@@ -177,7 +177,10 @@ app.MapGet("/customers/{id}/statement", async Task<Results<Ok<AccountStatementJs
     var path = ctx.HttpContext.Request.Path;
     var segments = path.Value?.Split('/');
 
-    if (segments?.Length == 0 || !(int.TryParse(segments?[1], out int digit) || digit < 1 || digit > 5))
+    if (segments == null || segments.Length < 3
+        || !int.TryParse(segments[2], out int digit)
+        || digit < 1
+        || digit > 5)
     {
         return TypedResults.NotFound();
     }

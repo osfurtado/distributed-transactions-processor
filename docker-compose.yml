@@ -3,7 +3,7 @@ services:
   db:
     image: postgres:latest
     hostname: db
-    command: 'postgres -c shared_buffers=256MB -c fsync=off -c full_page_writes=off -c max_connections=1000'
+    command: 'postgres -c shared_buffers=96MB -c fsync=off -c full_page_writes=off -c max_connections=150 -c synchronous_commit=off -c work_mem=2MB'
     environment:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=admin
@@ -31,7 +31,7 @@ services:
         condition: service_healthy
     environment:
       - ASPNETCORE_URLS=http://*:8080
-      - POOL_SIZE=490
+      - POOL_SIZE=50
     deploy:
       resources:
         limits:
@@ -46,7 +46,7 @@ services:
         condition: service_healthy
     environment:
       - ASPNETCORE_URLS=http://*:8080
-      - POOL_SIZE=490
+      - POOL_SIZE=50
     deploy:
       resources:
         limits:

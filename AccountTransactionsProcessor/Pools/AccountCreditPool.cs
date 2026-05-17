@@ -60,25 +60,19 @@ namespace AccountTransactionsProcessor.Pools
         {
             Console.WriteLine($"The Pool queue has: {_pool.Count}");
 
-            if (!_pool.IsEmpty)
-            {
-
-                if (_pool.TryDequeue(out var result))
-                    return result;
-                return Create();
-            }
-
-            return Create();
+            return _pool.TryDequeue(out var cmd)
+                ? cmd
+                : Create();
         }
 
 
         public void ReturnCommand(NpgsqlCommand command)
         {
             // Reset before returning it to the pool
-            command.Parameters[0] = new NpgsqlParameter<int>() { NpgsqlDbType = NpgsqlDbType.Integer };
-            command.Parameters[1] = new NpgsqlParameter<int>() { NpgsqlDbType = NpgsqlDbType.Integer };
-            command.Parameters[2] = new NpgsqlParameter<string>() { NpgsqlDbType = NpgsqlDbType.Char };
-            command.Parameters[3] = new NpgsqlParameter<string>() { NpgsqlDbType = NpgsqlDbType.Varchar };
+            command.Parameters["amount"].Value = DBNull.Value;
+            command.Parameters["id"].Value = DBNull.Value;
+            command.Parameters["type"].Value = DBNull.Value;
+            command.Parameters["description"].Value = DBNull.Value;
 
             _pool.Enqueue(command);
         }
