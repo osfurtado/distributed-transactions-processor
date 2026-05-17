@@ -9,9 +9,9 @@ Hochperformante API zur Verarbeitung von Finanztransaktionen, entwickelt mit .NE
 
 ## Inhaltsverzeichnis
  
-- [Ergebnis des Lasttests](#ergebnis-des-lasttests)
 - [Architektur](#architektur)
 - [Technologie-Stack](#technologie-stack)
+- [Ergebnis des Lasttests](#ergebnis-des-lasttests)
 - [Voraussetzungen](#voraussetzungen)
 - [Schnellstart](#schnellstart)
 - [Endpunkte](#endpunkte)
@@ -34,8 +34,6 @@ Hochperformante API zur Verarbeitung von Finanztransaktionen, entwickelt mit .NE
 
 ---
  
-## Ergebnis des Lasttests
-
 
 ## Architektur
 
@@ -52,6 +50,14 @@ Hochperformante API zur Verarbeitung von Finanztransaktionen, entwickelt mit .NE
 - [Nginx](https://nginx.org/) — Reverse Proxy und Load Balancer
 - [Docker Compose](https://docs.docker.com/compose/)
 - [Gatling](https://gatling.io/) — Lasttest via Scala-Skript
+---
+
+## Ergebnis des Lasttests
+<p align="center">
+  <img src="Docs/last.PNG" width="550" alt="Last Results">
+  <img src="Docs/global.PNG" width="550" alt="Global Results">
+</p>
+
 ---
 
 ## Voraussetzungen
